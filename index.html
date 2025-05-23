@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="tailwind.min.js"></script>
+    <title>Variant dúziwshi</title>
+  </head>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    #con {
+      height: 100vh;
+    }
+
+    /* dual panel, shep hám oń tárepte eki div boladı */
+    .dual {
+      display: flex;
+      height: 100%;
+    }
+
+    .stack button {
+      max-width: 300px;
+      width: 90%;
+    }
+
+    #menu {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      width: 25%;
+      padding: 20px;
+
+      border-right: 1px solid lightgray;
+    }
+
+    #menu button {
+      width: 80%;
+      max-width: 200px;
+    }
+
+    #main {
+      width: 75%;
+      padding: 10px;
+    }
+
+    #kategoriyalar {
+      height: 100%;
+    }
+
+    #kategoriyalar .tabs {
+      width: 30%;
+      margin-right: 10px;
+    }
+
+    #kategoriyalar .content {
+      width: 70%;
+      height: 100%;
+    }
+  </style>
+
+  <body>
+    <div id="con" class="dual">
+      <div id="menu">
+        <h3>Menu</h3>
+        <button id="kategoriyalar_btn" class="cursor-pointer">kategoriyalar</button>
+        <button id="sorawlar_btn" class="cursor-pointer">sorawlar</button>
+      </div>
+      <div id="main">
+        <div id="kategoriyalar">
+          <h3>Kategoriyalar</h3>
+          <div class="dual">
+            <div class="tabs flex flex-col gap-2"></div>
+            <textarea class="content"></textarea>
+          </div>
+        </div>
+        <div id="sorawlar">
+          <h3>Sorawlar</h3>
+        </div>
+      </div>
+    </div>
+
+    <script src="kategoriya.js"></script>
+
+    <script>
+      show("kategoriyalar");
+      fill_tabs();
+
+      kategoriyalar_btn.addEventListener("click", () => {
+        show("kategoriyalar");
+      });
+      sorawlar_btn.addEventListener("click", () => {
+        show("sorawlar");
+      });
+
+      function show(name) {
+        for (const element of document.querySelector("#main").children) {
+          if (element.id === name) {
+            element.className = "block";
+          } else {
+            element.className = "hidden";
+          }
+        }
+      }
+    </script>
+  </body>
+</html>

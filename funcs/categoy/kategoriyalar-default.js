@@ -1,0 +1,24 @@
+let kategoriyalar = [
+  {
+    name: "A",
+    sorawlar: ["a1", "a2", "a3", "a4"]
+  },
+  {
+    name: "B",
+    sorawlar: ["b1", "b2", "b3", "b4"]
+  },
+  {
+    name: "C",
+    sorawlar: ["c1", "c2", "c3", "c4"]
+  },
+  {
+    name: "D",
+    sorawlar: ["d1", "d2", "d3", "d4"]
+  },
+  {
+    name: "E",
+    sorawlar: ["e1", "e2", "e3", "e4"]
+  }
+];
+
+export default kategoriyalar;

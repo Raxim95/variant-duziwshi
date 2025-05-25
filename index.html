@@ -3,111 +3,72 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="index.css">
     <script src="tailwind.min.js"></script>
     <title>Variant dúziwshi</title>
   </head>
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    #con {
-      height: 100vh;
-    }
-
-    /* dual panel, shep hám oń tárepte eki div boladı */
-    .dual {
-      display: flex;
-      height: 100%;
-    }
-
-    .stack button {
-      max-width: 300px;
-      width: 90%;
-    }
-
-    #menu {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-      width: 25%;
-      padding: 20px;
-
-      border-right: 1px solid lightgray;
-    }
-
-    #menu button {
-      width: 80%;
-      max-width: 200px;
-    }
-
-    #main {
-      width: 75%;
-      padding: 10px;
-    }
-
-    #kategoriyalar {
-      height: 100%;
-    }
-
-    #kategoriyalar .tabs {
-      width: 30%;
-      margin-right: 10px;
-    }
-
-    #kategoriyalar .content {
-      width: 70%;
-      height: 100%;
-    }
-  </style>
-
-  <body>
-    <div id="con" class="dual">
-      <div id="menu">
-        <h3>Menu</h3>
-        <button id="kategoriyalar_btn" class="cursor-pointer">kategoriyalar</button>
-        <button id="sorawlar_btn" class="cursor-pointer">sorawlar</button>
+    <div id="con" class="flex w-[100vw] h-[100vh]">
+      <!-- Menu -->
+      <div id="menu" class="w-[200px] bg-gray-200 p-4">
+        <h3 class="text-2xl text-center">Menu</h3>
+        <div class="tabs flex flex-col">
+          <button class="font-bold">kategoriyalar</button>
+          <button>sorawlar</button>
+        </div>
       </div>
-      <div id="main">
-        <div id="kategoriyalar">
-          <h3>Kategoriyalar</h3>
-          <div class="dual">
+
+      <!-- Main -->
+      <div id="main" class="grow">
+        <!-- Kategoriyalar -->
+        <div id="kategoriyalar" class="flex h-full">
+          <div class="mt-8 w-[400px] p-4 flex flex-col gap-6">
             <div class="tabs flex flex-col gap-2"></div>
-            <textarea class="content"></textarea>
+            <!-- cat_funcs -->
+            <div class="flex gap-2">
+              <!-- new cat -->
+              <input type="text" id="new_cat_input" class="grow border p-2" placeholder="taza kategoriyanıń atı" />
+              <button id="new_cat_btn" class="bg-green-500 text-white rounded-md w-8">+</button>
+            </div>
+            <!-- import -->
+            <div>
+              <label for="fileInput" class="bg-blue-500 text-white p-2 text-white w-full block rounded-md text-center">Import fayl</label>
+              <input type="file" id="fileInput" class="hidden"/>
+            </div>
+            <!-- Remove all -->
+             <button></button>
+          </div>
+          <!-- Content -->
+          <div class="grow flex flex-col p-4">
+            <h3 id="cat_title" class="h-8 p-2"></h3>
+            <textarea class="content border w-full grow p-2"></textarea>
           </div>
         </div>
-        <div id="sorawlar">
+        <!-- Sorawlar -->
+        <div id="sorawlar" class="hidden">
           <h3>Sorawlar</h3>
         </div>
       </div>
+    
+    <div
+      id="toast"
+      style="
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #333;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+      "
+    >
+      Saved!
+    </div>
     </div>
 
-    <script src="kategoriya.js"></script>
-
-    <script>
-      show("kategoriyalar");
-      fill_tabs();
-
-      kategoriyalar_btn.addEventListener("click", () => {
-        show("kategoriyalar");
-      });
-      sorawlar_btn.addEventListener("click", () => {
-        show("sorawlar");
-      });
-
-      function show(name) {
-        for (const element of document.querySelector("#main").children) {
-          if (element.id === name) {
-            element.className = "block";
-          } else {
-            element.className = "hidden";
-          }
-        }
-      }
-    </script>
+    <script type="module" src="index.js"></script>
+      
   </body>
 </html>

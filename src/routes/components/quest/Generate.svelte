@@ -1,18 +1,25 @@
 <script>
+  import { onDestroy, onMount } from "svelte";
   import db from "$lib/db";
   import { on } from "svelte/events";
   import { PFSHAA } from "../../funcs/PFSHAA";
   import { variantlar, variantlar_sani } from "../../store";
-  import { onMount } from "svelte";
+  import { initTemplates, template_full_func } from "./template";
 
   let P = [];
+
+  const unsubscribe_variantlar_sani = variantlar.subscribe(async () => await prepare_pfshas());
+  const unsubscribe_variant = variantlar.subscribe(async () => await prepare_pfshas());
+
+  onDestroy(() => {
+    unsubscribe_variantlar_sani;
+    unsubscribe_variant();
+  });
 
   async function prepare_pfshas() {
     try {
       const kategoriyalar = await db.kategoriyalar.toArray();
       const sorawlar = await db.sorawlar.toArray();
-
-      console.log(sorawlar, kategoriyalar);
 
       P = sorawlar.map((soraw) => {
         const { count, kategoriyalarIds } = soraw;
@@ -33,6 +40,7 @@
 
   onMount(async () => {
     await prepare_pfshas();
+    await initTemplates();
   });
 
   function make_one_variant() {
@@ -43,16 +51,14 @@
     return variant;
   }
 
-  function generate() {
-    console.log(P);
-
+  async function generate() {
     let v = [];
 
     for (let i = 0; i < $variantlar_sani; i++) {
       v.push(make_one_variant());
     }
 
-    variantlar.set(v);
+    variantlar.set(template_full_func(v));
   }
 </script>
 

@@ -5,7 +5,6 @@
   import Content from "./components/Content.svelte";
   import Menu from "./components/Menu.svelte";
 
-  import cat_load_default from "$lib/cat_load_default";
   import CatClear from "./components/CatClear.svelte";
   import QuestList from "./components/quest/QuestList.svelte";
   import QuestAdd from "./components/quest/QuestAdd.svelte";

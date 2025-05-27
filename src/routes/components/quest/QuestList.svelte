@@ -2,14 +2,12 @@
   import db from "$lib/db.js";
   import { liveQuery } from "dexie";
   import show_toast from "../../funcs/show_toast";
+  import Generate from "./Generate.svelte";
+  import { variantlar_sani } from "../../store";
+  import Variant from "./Variant.svelte";
 
   let sorawlar = liveQuery(() => db.sorawlar.toArray());
   $: summ = $sorawlar?.reduce((acc, soraw) => acc + soraw.count, 0);
-  let variant_sani = 50;
-
-  function generate() {
-    show_toast("Generate basıldı!: " + variant_sani);
-  }
 </script>
 
 <div class="flex w-[50%] flex-col gap-8 overflow-auto border-r-1 p-4">
@@ -36,9 +34,10 @@
     <input
       type="number"
       name=""
-      bind:value={variant_sani}
+      onchange={(e) => variantlar_sani.set(e.target.value)}
       min="1"
       max="200"
+      value={50}
       class="ml-2 rounded-md border p-2"
       title="Neshe variant kerek boladı? (1-200)"
     />
@@ -47,8 +46,7 @@
     <button onclick={() => db.sorawlar.clear()} class="rounded-md border border-red-500 p-2 text-xl"
       >Clear</button
     >
-    <button onclick={generate} class="rounded-md border border-green-500 p-2 text-xl"
-      >Generate</button
-    >
+    <Generate></Generate>
   </div>
+  <Variant></Variant>
 </div>

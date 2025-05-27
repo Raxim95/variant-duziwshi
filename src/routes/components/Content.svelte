@@ -4,13 +4,15 @@
   import db from "$lib/db.js";
   import { liveQuery } from "dexie";
   import { derived } from "svelte/store";
+  import { onDestroy } from "svelte";
+  import { on } from "svelte/events";
 
   let kategoriya = null;
   let title = null;
   let content = null;
 
   // cat_id ni o‘qib, unga mos kategoriya ni olib kelamiz
-  cat_id.subscribe(async (id) => {
+  const unsubscribe = cat_id.subscribe(async (id) => {
     if (id === null) {
       title = null;
       content = null;
@@ -23,6 +25,10 @@
     } catch (err) {
       console.error("Xatolik:", err);
     }
+  });
+
+  onDestroy(() => {
+    unsubscribe();
   });
 
   async function save(e) {
